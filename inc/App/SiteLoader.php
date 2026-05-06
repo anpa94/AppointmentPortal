@@ -18,6 +18,10 @@ class SiteLoader
         }
 
         if ($site === 'home') {
+            if ((isset($_GET['mode']) && $_GET['mode'] === 'loadProjectBackend') || (isset($_GET['p']) && isset($_GET['mode']) && $_GET['mode'] === 'loadProjectBackend')) {
+                return $this->template->renderPage('project_backend.twig');
+            }
+
             return $this->template->renderPage('home.twig');
         }
 

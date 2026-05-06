@@ -11,21 +11,22 @@ function setMainLoading(isLoading) {
 }
 
 function buildHomeRequestFromUrl() {
-	var projectId = getUrlParameter('p');
+	var urlParams = getUrlParameters();
+	var projectId = urlParams.p;
 	if (projectId === undefined || projectId === null || projectId === '') {
 		return { mode: 'selectProject' };
 	}
 
 	return {
-		mode: getUrlParameter('mode') || 'loadProject',
+		mode: urlParams.mode || 'loadProject',
 		p: projectId,
-		d: getUrlParameter('d')
+		d: urlParams.d
 	};
 }
 
 function loadMainContent(ajaxData, nextUrl, onDone) {
 	if (nextUrl) {
-		history.pushState('', '', nextUrl);
+		history.pushState('', '', nextUrl.replace(/#$/, ''));
 	}
 	if (activeMainRequest && activeMainRequest.readyState !== 4) {
 		activeMainRequest.abort();
@@ -112,7 +113,9 @@ function init()
 
 	// Change hash for page-reload
 	$('.nav-tabs a').on('shown.bs.tab', function (e) {
-		window.location.hash = e.target.hash;
+		if (e.target.hash) {
+			history.replaceState('', '', buildPortalUrl(getUrlParameters(), e.target.hash));
+		}
 	});
 
 	$('.numbersOnly').keyup(function () { 
@@ -207,12 +210,12 @@ function init()
 	$('.pr_load_fe').click(function()
 	{
 		var pid = $(this).attr('p');
-		loadMainContent({ p: pid, mode: 'loadProject' }, '?p=' + pid + '&mode=loadProject');
+		loadMainContent({ p: pid, mode: 'loadProject' }, buildPortalUrl({ p: pid, mode: 'loadProject' }));
 	});
 	$('.pr_load_be').click(function()
 	{
 		var pid = $(this).attr('p');
-		loadMainContent({ p: pid, mode: 'loadProjectBackend' }, '?p=' + pid + '&mode=loadProjectBackend');
+		loadMainContent({ p: pid, mode: 'loadProjectBackend' }, buildPortalUrl({ p: pid, mode: 'loadProjectBackend' }));
 	});
 	$('.weekchange').click(function()
 	{
@@ -221,7 +224,7 @@ function init()
 		var mode = $('#mode').val();
 		loadMainContent(
 			{ p: projectId, mode: mode, d: dateValue },
-			'?p=' + projectId + '&d=' + dateValue + '&mode=' + mode + '#book'
+			buildPortalUrl({ p: projectId, d: dateValue, mode: mode }, 'book')
 		);
 	});	
 	$('#send').click(function () {
