@@ -45,7 +45,7 @@ $('.adduser').click(function () {
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', '?p=' + reqCode + '&mode=loadProjectBackend#access');
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'access'));
 					$.ajax(
 					{
 						method: 'POST',
