@@ -77,15 +77,16 @@ function init()
 {
 	$('[data-toggle="tooltip"]').tooltip();
 	
-	$('#bookinglisst').dataTable( {
-		"language": {
-			"url": "dataTables/German.json"
-		},
-		"paging":   false,
-		"ordering": true,
-		"info":     true
-
-	} );
+	if ($.fn.dataTable && $('#bookinglist').length) {
+		$('#bookinglist').dataTable({
+			"language": {
+				"url": "datatables/German.json"
+			},
+			"paging": false,
+			"ordering": true,
+			"info": true
+		});
+	}
 	
 	$('.tdbookallowed').click(function () {
         BootstrapDialog.show({
