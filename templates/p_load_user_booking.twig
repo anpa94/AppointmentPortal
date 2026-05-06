@@ -1,0 +1,11 @@
+{{ content }}
+<script>
+$('.adduser').click(function () {
+		$('#user_res').attr('user', $(this).attr('sam'));
+		$('#user_res').attr('value', $(this).attr('user'));
+		$('#user_res').val($(this).attr('user'));
+		$('#user_res_load').empty();
+		$('#user_res').parent('div').removeClass('has-error');
+		return false;
+        });
+</script>

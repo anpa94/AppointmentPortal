@@ -1,0 +1,40 @@
+{{ message }}
+{{ save_button }}
+{{ day_range }}
+<br>
+<h4>Terminblöcke</h4>
+{{ slots_table }}
+<script>
+$('.addtimeslots').click(function () {
+		var data = 'mode=addtimeslot&time=' + $(this).attr('time') + '&id=' + $('#id').val();
+		$.ajax({
+			url: 'inc/p_kopfdaten_send.php',
+			type: "GET",
+			data: data,
+			success: function (reqCode) {
+				if (reqCode>0) {
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'ProjectBackend' }, 'booking'));
+					$.ajax(
+					{
+						method: 'POST',
+						url: 'sites/ajax/ajax_home.php',
+						data:
+						{
+							p: reqCode,
+							mode: 'ProjectBackend'
+						},
+						success: function(data)
+						{
+							$('#main').html(data).promise().done(function() {init();});
+							$('#message').html('<div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Die Terminblöcke wurden erfolgreich gespeichert / aktualisiert.</div>');
+						}
+					});
+					
+				} else{
+		            $('#message').html('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Fehler. Die Terminblöcke konnten nicht gespeichert werden.</div>');
+		        }
+			}
+		});
+		return false;
+	});	
+ </script>

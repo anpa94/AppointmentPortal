@@ -1,0 +1,9 @@
+{{ content }}
+<script>
+	$('.storno').click(function () {
+		$.get('inc/p_choosedate.php?mode=storno&wert=' + $(this).attr('wert'), function(data) {
+			$('#bookingbody').html(data);
+		});
+	});
+
+</script>
