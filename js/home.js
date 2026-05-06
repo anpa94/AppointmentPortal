@@ -1,6 +1,47 @@
 var activeMainRequest = null;
 var activePartialRequest = null;
 
+if (typeof getUrlParameters !== 'function') {
+	function getUrlParameters() {
+		var params = {};
+		var search = window.location.search.substring(1);
+		if (!search) {
+			return params;
+		}
+
+		search.split('&').forEach(function (part) {
+			if (!part) {
+				return;
+			}
+			var pair = part.split('=');
+			var key = decodeURIComponent(pair[0] || '');
+			if (!key) {
+				return;
+			}
+			params[key] = decodeURIComponent(pair[1] || '');
+		});
+
+		return params;
+	}
+}
+
+if (typeof buildPortalUrl !== 'function') {
+	function buildPortalUrl(params, hash) {
+		var query = Object.keys(params || {}).filter(function (key) {
+			return params[key] !== undefined && params[key] !== null && params[key] !== '';
+		}).map(function (key) {
+			return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+		}).join('&');
+
+		var url = query ? '?' + query : window.location.pathname;
+		if (hash) {
+			return url + '#' + hash.replace(/^#/, '');
+		}
+
+		return url;
+	}
+}
+
 function setMainLoading(isLoading) {
 	$('#main').attr('aria-busy', isLoading ? 'true' : 'false');
 	if (isLoading) {
