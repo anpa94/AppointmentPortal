@@ -37,14 +37,15 @@ if ($_GET["mode"] == 'updateProject')
 if ($_GET["mode"] == 'updateProjectMail')
 {
 	$pid = $_GET["id"];
-    if($row = $db_link->query('SELECT sender, subject, body, ort FROM _emailinformation WHERE project_id = "'.$_GET["id"].'"')->fetch_object())
+    if($row = $db_link->query('SELECT sender, subject, body, ort, mailtype FROM _emailinformation WHERE project_id = "'.$_GET["id"].'"')->fetch_object())
     {
        $query2 = $db_link->query("UPDATE `_emailinformation`
         SET
         `sender`='" . htmlentities(trim($_GET["sender"]))  . "',
         `subject`='" . htmlentities(addslashes(trim($_GET["subject"]))) . "',
         `body`='" . htmlentities(addslashes(trim($_GET["body"])))  . "',
-        `ort`='" . htmlentities(addslashes(trim($_GET["ort"])))  . "'
+        `ort`='" . htmlentities(addslashes(trim($_GET["ort"])))  . "',
+        `mailtype`='" . ((isset($_GET["mailtype"]) && $_GET["mailtype"] === 'text') ? 'text' : 'html') . "'
         WHERE  `project_id`='" . $_GET["id"] . "'");
 	   
 	   echo "UPDATE `_emailinformation`
@@ -52,18 +53,20 @@ if ($_GET["mode"] == 'updateProjectMail')
         `sender`='" . htmlentities(trim($_GET["sender"]))  . "',
         `subject`='" . htmlentities(addslashes(trim($_GET["subject"]))) . "',
         `body`='" . htmlentities(addslashes(trim($_GET["body"])))  . "',
-        `ort`='" . htmlentities(addslashes(trim($_GET["ort"])))  . "'
+        `ort`='" . htmlentities(addslashes(trim($_GET["ort"])))  . "',
+        `mailtype`='" . ((isset($_GET["mailtype"]) && $_GET["mailtype"] === 'text') ? 'text' : 'html') . "'
         WHERE  `project_id`='" . $_GET["id"] . "'";
        $pid = $_GET["id"];
        
     }
     else
     {
-        $query2 = $db_link->query("INSERT INTO `_emailinformation` (project_id, sender, subject, body, ort) VALUES('" . $_GET["id"] . "',
+        $query2 = $db_link->query("INSERT INTO `_emailinformation` (project_id, sender, subject, body, ort, mailtype) VALUES('" . $_GET["id"] . "',
         '" . htmlentities(trim($_GET["sender"])) . "',
         '" . htmlentities(addslashes(trim($_GET["subject"]))) . "',
         '" . htmlentities(addslashes(trim($_GET["body"]))) . "',
-        '" . htmlentities(addslashes(trim($_GET["ort"]))) . "')");
+        '" . htmlentities(addslashes(trim($_GET["ort"]))) . "',
+        '" . ((isset($_GET["mailtype"]) && $_GET["mailtype"] === 'text') ? 'text' : 'html') . "')");
 		
 		echo "INSERT INTO `_emailinformation` (project_id, sender, subject, ort, body) VALUES('" . $_GET["id"] . "',
         '" . htmlentities(trim($_GET["sender"])) . "',
@@ -192,4 +195,3 @@ if(isset($query2))
 else
     echo '0';
 ?>
-

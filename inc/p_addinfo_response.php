@@ -53,7 +53,7 @@ else
 							data: data,
 							success: function (reqCode) {
 								if (reqCode>0) {
-									history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'addinfos'));
+									history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'ProjectBackend' }, 'addinfos'));
 									$.ajax(
 									{
 										method: 'POST',
@@ -61,7 +61,7 @@ else
 										data:
 										{
 											p: reqCode,
-											mode: 'loadProjectBackend'
+											mode: 'ProjectBackend'
 										},
 										success: function(data)
 										{

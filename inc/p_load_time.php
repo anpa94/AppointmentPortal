@@ -41,7 +41,7 @@ $('.addtimeslots').click(function () {
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'booking'));
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'ProjectBackend' }, 'booking'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -49,7 +49,7 @@ $('.addtimeslots').click(function () {
 						data:
 						{
 							p: reqCode,
-							mode: 'loadProjectBackend'
+							mode: 'ProjectBackend'
 						},
 						success: function(data)
 						{

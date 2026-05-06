@@ -104,6 +104,15 @@ h2,h3,h4 {
     background: var(--primary-soft);
     border-bottom: 0;
 }
+.calendar-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+.cal { min-width: 980px; margin-bottom: 0; }
+.cal .tdcalendar { min-width: 120px; vertical-align: top; }
 
 .project-title {
     margin-top: 10px;
@@ -178,11 +187,8 @@ h2,h3,h4 {
         width: 100%;
         display: block;
     }
-    .table {
-        display: block;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
+    .table { display: table; }
+    .cal { min-width: 860px; }
     .form-control,
     .input-group,
     .controls {

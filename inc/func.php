@@ -180,6 +180,7 @@ function bookingCalendar($p, $datum)
 		echo '</ul>
 	</nav>';
 	echo '<p class="text-muted pull-right clearfix"><i class="fa fa-user-o" aria-hidden="true"></i> '.$language['freeslot'].' || <i class="fa fa-user" aria-hidden="true"></i> '.$language['reservedslot'].'</p>';
+	echo '<div class="calendar-responsive">';
 	echo '<table class="table table-sm cal"><thead><tr><th style="text-align:center; width:12.5% !important;">'.$language['dateblock'].'</th>';
 	$i=0;
 	$weekdates = array();
@@ -252,14 +253,14 @@ function bookingCalendar($p, $datum)
 		}
 	}
 		
-		echo'</tbody></table>';
+		echo'</tbody></table></div>';
 }
 
 function sendmail($dbrow)
 {
 	echo $dbrow;
 	global $db_link;
-     $book = $db_link->query("SELECT p.user, p.booker, p.date, p.additional_infos, t.starttime, t.endtime, m.sender, m.subject, m.body, m.ort from _booking as p, _timeslots as t, _emailinformation as m WHERE p.timeslot_id = t.id AND p.project_id = m.project_id AND p.id =  '".$dbrow."'")->fetch_object();
+     $book = $db_link->query("SELECT p.user, p.booker, p.date, p.additional_infos, t.starttime, t.endtime, m.sender, m.subject, m.body, m.ort, m.mailtype from _booking as p, _timeslots as t, _emailinformation as m WHERE p.timeslot_id = t.id AND p.project_id = m.project_id AND p.id =  '".$dbrow."'")->fetch_object();
 	 
 	$filter = "(&(objectCategory=person)(objectClass=user)(samAccountName=".$book->user."))";
 $ldups = search_ldap($filter);
@@ -284,7 +285,7 @@ $mail->SMTPDebug = 0;
 $mail->Host = 'ece8smtp';
 $mail->Port = 25;
 $mail->SMTPAuth = false;
-$mail->IsHTML(true);
+$mail->IsHTML(($book->mailtype ?? 'html') !== 'text');
 $mail->setFrom($book->sender);
 //$mail->addReplyTo('your@kaserver.com', 'Water Melon');
 $mail->addAddress($rec);
