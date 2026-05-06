@@ -225,7 +225,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'booking'));
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'ProjectBackend' }, 'booking'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -233,7 +233,7 @@ function init()
 						data:
 						{
 							p: reqCode,
-							mode: 'loadProjectBackend'
+							mode: 'ProjectBackend'
 						},
 						success: function(data)
 						{
@@ -257,7 +257,7 @@ function init()
 	$('.pr_load_be').click(function()
 	{
 		var pid = $(this).attr('p');
-		loadMainContent({ p: pid, mode: 'loadProjectBackend' }, buildPortalUrl({ p: pid, mode: 'loadProjectBackend' }));
+		loadMainContent({ p: pid, mode: 'ProjectBackend' }, buildPortalUrl({ p: pid, mode: 'ProjectBackend' }));
 	});
 	$('.weekchange').click(function()
 	{
@@ -303,7 +303,7 @@ function init()
 							data: data,
 							success: function (reqCode) {
 								if (reqCode>0) {
-									history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'head'));
+									history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'ProjectBackend' }, 'head'));
 									$.ajax(
 									{
 										method: 'POST',
@@ -311,7 +311,7 @@ function init()
 										data:
 										{
 											p: reqCode,
-											mode: 'loadProjectBackend'
+											mode: 'ProjectBackend'
 										},
 										success: function(data)
 										{
@@ -353,14 +353,14 @@ function init()
 					}
 					else
 					{
-					var data = 'mode=updateProjectMail&subject=' + encodeURIComponent($('#mailbetreff').val()) + '&sender=' + encodeURIComponent($('#mailsender').val()) + '&ort=' + encodeURIComponent($('#mailort').val()) + '&id=' + $('#id').val()  + '&body='  + encodeURIComponent($('#mailbody').val());
+					var data = 'mode=updateProjectMail&subject=' + encodeURIComponent($('#mailbetreff').val()) + '&sender=' + encodeURIComponent($('#mailsender').val()) + '&ort=' + encodeURIComponent($('#mailort').val()) + '&id=' + $('#id').val()  + '&body='  + encodeURIComponent($('#mailbody').val()) + '&mailtype=' + encodeURIComponent($('#mailtype').val());
 						$.ajax({
 							url: 'inc/p_kopfdaten_send.php',
 							type: "GET",
 							data: data,
 							success: function (reqCode) {
 								if (reqCode>0) {
-									history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'mail'));
+									history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'ProjectBackend' }, 'mail'));
 									$.ajax(
 									{
 										method: 'POST',
@@ -368,7 +368,7 @@ function init()
 										data:
 										{
 											p: reqCode,
-											mode: 'loadProjectBackend'
+											mode: 'ProjectBackend'
 										},
 										success: function(data)
 										{
@@ -401,7 +401,7 @@ function init()
 							data: data,
 							success: function (reqCode) {
 								if (reqCode>0) {
-									history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'addinfos'));
+									history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'ProjectBackend' }, 'addinfos'));
 									$.ajax(
 									{
 										method: 'POST',
@@ -409,7 +409,7 @@ function init()
 										data:
 										{
 											p: reqCode,
-											mode: 'loadProjectBackend'
+											mode: 'ProjectBackend'
 										},
 										success: function(data)
 										{
@@ -434,7 +434,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'addinfos'));
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'ProjectBackend' }, 'addinfos'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -442,7 +442,7 @@ function init()
 						data:
 						{
 							p: reqCode,
-							mode: 'loadProjectBackend'
+							mode: 'ProjectBackend'
 						},
 						success: function(data)
 						{
@@ -466,7 +466,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }));
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'ProjectBackend' }));
 					$.ajax(
 					{
 						method: 'POST',
@@ -474,7 +474,7 @@ function init()
 						data:
 						{
 							p: reqCode,
-							mode: 'loadProjectBackend'
+							mode: 'ProjectBackend'
 						},
 						success: function(data)
 						{
@@ -498,7 +498,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'access'));
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'ProjectBackend' }, 'access'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -506,7 +506,7 @@ function init()
 						data:
 						{
 							p: reqCode,
-							mode: 'loadProjectBackend'
+							mode: 'ProjectBackend'
 						},
 						success: function(data)
 						{
@@ -530,7 +530,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'block'));
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'ProjectBackend' }, 'block'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -538,7 +538,7 @@ function init()
 						data:
 						{
 							p: reqCode,
-							mode: 'loadProjectBackend'
+							mode: 'ProjectBackend'
 						},
 						success: function(data)
 						{
@@ -562,7 +562,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'block'));
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'ProjectBackend' }, 'block'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -570,7 +570,7 @@ function init()
 						data:
 						{
 							p: reqCode,
-							mode: 'loadProjectBackend'
+							mode: 'ProjectBackend'
 						},
 						success: function(data)
 						{
@@ -594,7 +594,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'booking'));
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'ProjectBackend' }, 'booking'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -602,7 +602,7 @@ function init()
 						data:
 						{
 							p: reqCode,
-							mode: 'loadProjectBackend'
+							mode: 'ProjectBackend'
 						},
 						success: function(data)
 						{
@@ -626,7 +626,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'block'));
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'ProjectBackend' }, 'block'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -634,7 +634,7 @@ function init()
 						data:
 						{
 							p: reqCode,
-							mode: 'loadProjectBackend'
+							mode: 'ProjectBackend'
 						},
 						success: function(data)
 						{
@@ -670,7 +670,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'booking'));
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'ProjectBackend' }, 'booking'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -678,7 +678,7 @@ function init()
 						data:
 						{
 							p: reqCode,
-							mode: 'loadProjectBackend'
+							mode: 'ProjectBackend'
 						},
 						success: function(data)
 						{

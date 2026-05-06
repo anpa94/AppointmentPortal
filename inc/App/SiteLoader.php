@@ -18,7 +18,7 @@ class SiteLoader
         }
 
         if ($site === 'home') {
-            if ((isset($_GET['mode']) && $_GET['mode'] === 'loadProjectBackend') || (isset($_GET['p']) && isset($_GET['mode']) && $_GET['mode'] === 'loadProjectBackend')) {
+            if ((isset($_GET['mode']) && $_GET['mode'] === 'ProjectBackend') || (isset($_GET['p']) && isset($_GET['mode']) && $_GET['mode'] === 'ProjectBackend')) {
                 return $this->template->renderPage('project_backend.twig');
             }
 

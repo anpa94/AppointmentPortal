@@ -11,7 +11,7 @@ if((json_decode(getConfig('authorizedGroups', 'frontend'))[0] == "ALL" || user_a
 	$p = isset($_POST['p']) ? $_POST['p'] : 'X';
 	$datum = isset($_POST['d']) ? $_POST['d'] : '0';
 	echo'<input id="d" type="hidden" class="form-control" disabled value="'.$datum.'">';
-	if($_POST['mode'] == "loadProject" || $_POST['mode'] == "loadProjectBackend" || $_POST['mode'] == "selectProject")
+	if($_POST['mode'] == "loadProject" || $_POST['mode'] == "ProjectBackend" || $_POST['mode'] == "selectProject")
 		$_POST['mode']($db_link, $p, $datum);
 	else
 		echo '<div class="alert alert-danger"><strong>Fehler!</strong> Diese Seite existiert nicht.</div>';
@@ -83,7 +83,7 @@ function loadProject($db_link, $project, $datum)
 
 };
 
-function loadProjectBackend($db_link, $project, $datum)
+function ProjectBackend($db_link, $project, $datum)
 {
 	global $language;
 	global $user;
@@ -100,8 +100,8 @@ function loadProjectBackend($db_link, $project, $datum)
 		$row1 = $db_link->query('SELECT id, name, description, active, startdate, enddate, starttime, endtime FROM projects WHERE id = "'.$project.'"')->fetch_object();
 		$data_head = isset($row1) ? $row1 : $data_temp;
 
-		$data_mail_temp = (object) array('sender' => '', 'subject' => '', 'body' => '', 'ort' => '');
-		$row_mail = $db_link->query('SELECT sender, subject, body, ort FROM _emailinformation WHERE project_id = "'.$project.'"')->fetch_object();
+		$data_mail_temp = (object) array('sender' => '', 'subject' => '', 'body' => '', 'ort' => '', 'mailtype' => 'html');
+		$row_mail = $db_link->query('SELECT sender, subject, body, ort, mailtype FROM _emailinformation WHERE project_id = "'.$project.'"')->fetch_object();
 		$data_mail = isset($row_mail) ? $row_mail : $data_mail_temp;
 		
 		echo'
@@ -490,6 +490,15 @@ echo'
 					<div class="control-group">
 						<label  for="mailort"  class="control-label col-sm-6"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Ort</label>
 						<div class="controls"><input id="mailort" type="text" class="form-control" value="'.html_entity_decode($data_mail->ort).'"></div>
+					</div>
+					<div class="control-group">
+						<label  for="mailtype"  class="control-label col-sm-6"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Typ der Termineinladung</label>
+						<div class="controls">
+							<select id="mailtype" class="form-control">
+								<option value="html" '.($data_mail->mailtype !== 'text' ? 'selected' : '').'>HTML</option>
+								<option value="text" '.($data_mail->mailtype === 'text' ? 'selected' : '').'>Text</option>
+							</select>
+						</div>
 					</div>
 					<button type="button" id="send-mail" class="btn btn-default right"><i class="fa fa-floppy-o" aria-hidden="true"></i> Speichern</button>
 				</div>
