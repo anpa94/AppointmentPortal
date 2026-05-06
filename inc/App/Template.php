@@ -1,0 +1,71 @@
+<?php
+
+class Template
+{
+    public static function renderHeader(string $pageTitle = '[IT] Terminplanungsportal'): void
+    {
+        header('Content-Type: text/html; charset=utf-8');
+        ?>
+        <!DOCTYPE html>
+        <html lang="de">
+        <head>
+            <meta charset="utf-8">
+            <meta content="IE=edge" http-equiv="X-UA-Compatible">
+            <meta content="width=device-width,initial-scale=1" name="viewport">
+            <meta content="Terminvergabe einfach gemacht." name="description">
+            <meta content="DATAGROUP Hamburg GmbH, Thomas Fischer" name="author">
+            <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+            <title><?php echo htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8'); ?></title>
+
+            <script src="js/jquery-3.1.0.min.js" type="text/javascript"></script>
+            <script src="js/func.js" type="text/javascript"></script>
+            <script src="js/moments.js" type="text/javascript"></script>
+            <script src="js/bootstrap.min.js" type="text/javascript"></script>
+            <script src="js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+            <script src="js/bootstrap-timepicker.min.js" type="text/javascript"></script>
+            <script src="js/bootstrap-dialog.js" type="text/javascript"></script>
+            <script src="js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+            <script src="js/datatable.js" type="text/javascript"></script>
+            <script src="js/datatable_button.js" type="text/javascript"></script>
+
+            <link rel="stylesheet" href="css/bootstrap.min.css">
+            <link rel="stylesheet" href="css/bootstrap-timepicker.min.css">
+            <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+            <link rel="stylesheet" href="css/bootstrap-dialog.css">
+            <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+            <link href="fonts/opensans.css" rel="stylesheet">
+            <link href="fonts/oswald.css" rel="stylesheet">
+            <link href="css/font-awesome.css" rel="stylesheet">
+            <link rel="stylesheet" href="css/main.css">
+        </head>
+        <body>
+        <div class="app-shell">
+            <nav class="app-nav">
+                <div class="container app-nav__content">
+                    <a class="app-brand" href="<?php echo URLpath; ?>">
+                        <img src="img/logo_ece.png" alt="ECE Logo">
+                        <div class="app-brand__text">
+                            <span class="app-badge">Appointment Portal</span>
+                            <strong>[IT]booking</strong>
+                        </div>
+                    </a>
+                </div>
+            </nav>
+            <header class="app-hero">
+                <div class="container">
+                    <h1>Terminplanungsportal</h1>
+                    <p>Schnell. Übersichtlich. Modern.</p>
+                </div>
+            </header>
+        <?php
+    }
+
+    public static function renderFooter(): void
+    {
+        ?>
+        </div>
+        </body>
+        </html>
+        <?php
+    }
+}
