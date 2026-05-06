@@ -1,0 +1,31 @@
+<?php
+$language = array(
+  'projektinformationen' => 'project information',
+  'chooseproject' => 'choose project',
+  'bookingcalendar' => 'booking calendar',
+  'mybookings' => 'my bookings',
+  'bookings' => 'bookings',
+  'description' => 'description',
+  'tage' => array("sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"),
+  'tage_de' => array("Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"),
+  'nobookings' => 'There are no bookings in this project created from your account or created for your account.',
+  'autosearch' => 'An automatic search takes place after entering at least 3 characters.',
+  'error' => '<strong> Error! </ strong> Invalid input!',
+  'savereservation' => ' Confirm reservation',
+  'reserveinfo' => 'To make a reservation for a colleague, please enter the last name in the corresponding input field and select the colleague.',
+  'name' => 'name',
+  'date' => 'date',
+  'timeslot' => 'timeslot',
+  'reserve' => 'reserve',
+  'save' => 'save',
+  'choose' => 'Please choose',
+  'hhtime' => '(Hamburg local time)',
+  'freeslot' => 'free slot',
+  'reservedslot' => 'booked slot',
+  'booking' => 'book',
+  'nobooking' => 'Booking not possible',
+  'dateblock' => 'date / <br>timeslot',
+  'firstbookingday' => 'First day of booking',
+  'lastbookingday' => 'Last day of booking'    
+);
+?>

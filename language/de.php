@@ -1,0 +1,31 @@
+<?php
+$language = array(
+  'projektinformationen' => ' Projektinformationen',
+  'chooseproject' => 'Projekt auswählen',
+  'bookingcalendar' => 'Buchungskalender',
+  'mybookings' => 'Meine Buchung(en)',
+  'bookings' => 'Buchungen',
+  'description' => 'Beschreibung',
+  'tage' => array("Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"),
+  'tage_de' => array("Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"),
+  'nobookings' => 'Keine Buchungen in diesem Projekt für dich oder von dir vorhanden.',
+  'autosearch' => 'Eine automatische Suche erfolgt nach der Eingabe von mind. 3 Zeichen.',
+  'error' => '<strong>Fehler!</strong> Ungültige Eingabe!',
+  'savereservation' => ' Reservierung bestätigen',
+  'reserveinfo' => 'Zur Reservierung für einen Kollegen bitte den Nachnamen in das entsprechende Eingabefeld eingeben und den Kollegen auswählen.',
+  'name' => 'Name',
+  'date' => 'Datum',
+  'timeslot' => 'Terminblock',
+  'reserve' => 'Reservieren',
+  'save' => 'Speichern',
+  'choose' => 'Bitte auswählen',
+  'hhtime' => '(MEZ)',
+  'freeslot' => 'Freier Platz',
+  'reservedslot' => 'Reservierter Platz',
+  'booking' => 'reservieren',
+  'nobooking' => 'Keine Reservierung möglich',
+  'dateblock' => 'Datum / <br>Terminblock',
+  'firstbookingday' => 'Erster Buchungstag',
+  'lastbookingday' => 'Letzter Buchungstag'
+);
+?>
