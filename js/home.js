@@ -27,13 +27,18 @@ if (typeof getUrlParameters !== 'function') {
 
 if (typeof buildPortalUrl !== 'function') {
 	function buildPortalUrl(params, hash) {
-		var query = Object.keys(params || {}).filter(function (key) {
-			return params[key] !== undefined && params[key] !== null && params[key] !== '';
-		}).map(function (key) {
-			return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
-		}).join('&');
-
-		var url = query ? '?' + query : window.location.pathname;
+		var safeParams = params || {};
+		var url = window.location.pathname;
+		if (safeParams.mode === 'ProjectBackend' && safeParams.p) {
+			url = '/ProjectBackend/' + encodeURIComponent(safeParams.p);
+		} else {
+			var query = Object.keys(safeParams).filter(function (key) {
+				return safeParams[key] !== undefined && safeParams[key] !== null && safeParams[key] !== '';
+			}).map(function (key) {
+				return encodeURIComponent(key) + '=' + encodeURIComponent(safeParams[key]);
+			}).join('&');
+			url = query ? '?' + query : window.location.pathname;
+		}
 		if (hash) {
 			return url + '#' + hash.replace(/^#/, '');
 		}
@@ -52,6 +57,11 @@ function setMainLoading(isLoading) {
 }
 
 function buildHomeRequestFromUrl() {
+	var path = window.location.pathname.replace(/^\/+|\/+$/g, '').split('/');
+	if (path.length >= 2 && path[0] === 'ProjectBackend') {
+		return { mode: 'ProjectBackend', p: decodeURIComponent(path[1]) };
+	}
+
 	var urlParams = getUrlParameters();
 	var projectId = urlParams.p;
 	if (projectId === undefined || projectId === null || projectId === '') {
