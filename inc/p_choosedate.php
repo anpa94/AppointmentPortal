@@ -2,7 +2,6 @@
 
 include("config.php");
 include("func.php");
-include("PHPExcel.php");
 $lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
 $lang = substr($lang, 0, 2)=='de' ? "de" : "en";
 

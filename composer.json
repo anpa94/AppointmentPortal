@@ -2,7 +2,10 @@
   "name": "appointmentportal/app",
   "type": "project",
   "require": {
-    "twig/twig": "^3.0"
+    "twig/twig": "^3.0",
+    "phpmailer/phpmailer": "^6.9",
+    "phpoffice/phpspreadsheet": "^2.2",
+    "setasign/fpdf": "^1.8"
   },
   "autoload": {
     "psr-4": {

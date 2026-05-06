@@ -1,5 +1,10 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+
 function user_authorized($groups) // Prüft ob der Benutzer in einer der angegebenen Gruppen ist. Rückgabe Boolean
 {
     $authorized = TRUE;
@@ -252,8 +257,6 @@ function bookingCalendar($p, $datum)
 
 function sendmail($dbrow)
 {
-	require('../phpmailer/class.phpmailer.php');
-	require('../phpmailer/class.smtp.php');
 	echo $dbrow;
 	global $db_link;
      $book = $db_link->query("SELECT p.user, p.booker, p.date, p.additional_infos, t.starttime, t.endtime, m.sender, m.subject, m.body, m.ort from _booking as p, _timeslots as t, _emailinformation as m WHERE p.timeslot_id = t.id AND p.project_id = m.project_id AND p.id =  '".$dbrow."'")->fetch_object();
@@ -295,8 +298,6 @@ $mail->send();
 
 function sendmail_test($dbrow)
 {
-	require('/../phpmailer/class.phpmailer.php');
-	require('/../phpmailer/class.smtp.php');
 	global $db_link;
      $book = $db_link->query("SELECT p.user, p.booker, p.date, p.additional_infos, t.starttime, t.endtime, m.sender, m.subject, m.body from _booking as p, _timeslots as t, _emailinformation as m WHERE p.timeslot_id = t.id AND p.id = m.project_id AND p.id =  '".$dbrow."'")->fetch_object();
 // event params
@@ -359,7 +360,7 @@ $mail->send();
 }
 function export2excel($filename, $autofilter, ...$data)
 {    // Create new PHPExcel object
-    $objPHPExcel = new PHPExcel();
+    $objPHPExcel = new Spreadsheet();
 	$objPHPExcel->removeSheetByIndex(0);
 	$textFormat='@';//'General','0.00','@'
 	$sheetindex = 0;
@@ -383,7 +384,7 @@ function export2excel($filename, $autofilter, ...$data)
 				$objPHPExcel->getActiveSheet()->setAutoFilter('A1:' . $alphabet . '1');
 			$alphabet++;
 		}
-		$objPHPExcel->getActiveSheet()->getStyle('A1:' . $alphabet . '999')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_TEXT);
+		$objPHPExcel->getActiveSheet()->getStyle('A1:' . $alphabet . '999')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_TEXT);
 		$sheetindex++;
 	}
 	//Save Excel 2007 file
@@ -404,6 +405,6 @@ function export2excel($filename, $autofilter, ...$data)
 	header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 	header ('Pragma: public'); // HTTP/1.0
 	
-	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+	$objWriter = new Xlsx($objPHPExcel);
 	$objWriter->save('php://output');
 }
