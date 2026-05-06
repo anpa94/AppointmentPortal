@@ -1,1 +1,2 @@
-<script src="js/home.js" type="text/javascript"></script>
+<?php
+// Home rendering moved to templates/home.twig.

@@ -1,3 +1,2 @@
 <?php
-require_once __DIR__ . '/App/Template.php';
-Template::renderHeader();
+// Header rendering moved to Twig layout template.

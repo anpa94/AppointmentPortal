@@ -1,12 +1,10 @@
 <?php
 require_once 'inc/config.php';
-require_once 'inc/header.php';
-?>
+require_once 'inc/App/Twig.php';
+require_once 'inc/App/Template.php';
+ob_start();
+require 'inc/loadSite.php';
+$content = ob_get_clean();
 
-<main id="main" class="container app-main">
-    <section class="app-card">
-        <?php require_once 'inc/loadSite.php'; ?>
-    </section>
-</main>
-
-<?php require_once 'inc/footer.php';
+$template = new Template();
+$template->renderLayout($content);
