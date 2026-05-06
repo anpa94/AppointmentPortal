@@ -183,7 +183,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', '?p=' + reqCode + '&mode=loadProjectBackend#booking');
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'booking'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -261,7 +261,7 @@ function init()
 							data: data,
 							success: function (reqCode) {
 								if (reqCode>0) {
-									history.pushState('', '', '?p=' + reqCode + '&mode=loadProjectBackend#head');
+									history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'head'));
 									$.ajax(
 									{
 										method: 'POST',
@@ -318,7 +318,7 @@ function init()
 							data: data,
 							success: function (reqCode) {
 								if (reqCode>0) {
-									history.pushState('', '', '?p=' + reqCode + '&mode=loadProjectBackend#mail');
+									history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'mail'));
 									$.ajax(
 									{
 										method: 'POST',
@@ -359,7 +359,7 @@ function init()
 							data: data,
 							success: function (reqCode) {
 								if (reqCode>0) {
-									history.pushState('', '', '?p=' + reqCode + '&mode=loadProjectBackend#addinfos');
+									history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'addinfos'));
 									$.ajax(
 									{
 										method: 'POST',
@@ -392,7 +392,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', '?p=' + reqCode + '&mode=loadProjectBackend#addinfos');
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'addinfos'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -424,7 +424,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', '?p=' + reqCode + '&mode=loadProjectBackend');
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }));
 					$.ajax(
 					{
 						method: 'POST',
@@ -456,7 +456,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', '?p=' + reqCode + '&mode=loadProjectBackend#access');
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'access'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -488,7 +488,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', '?p=' + reqCode + '&mode=loadProjectBackend#block');
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'block'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -520,7 +520,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', '?p=' + reqCode + '&mode=loadProjectBackend#block');
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'block'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -552,7 +552,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', '?p=' + reqCode + '&mode=loadProjectBackend#booking');
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'booking'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -584,7 +584,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', '?p=' + reqCode + '&mode=loadProjectBackend#block');
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'block'));
 					$.ajax(
 					{
 						method: 'POST',
@@ -628,7 +628,7 @@ function init()
 			data: data,
 			success: function (reqCode) {
 				if (reqCode>0) {
-					history.pushState('', '', '?p=' + reqCode + '&mode=loadProjectBackend#booking');
+					history.pushState('', '', buildPortalUrl({ p: reqCode, mode: 'loadProjectBackend' }, 'booking'));
 					$.ajax(
 					{
 						method: 'POST',
