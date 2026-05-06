@@ -31,6 +31,11 @@ if (typeof buildPortalUrl !== 'function') {
 		var url = window.location.pathname;
 		if (safeParams.mode === 'ProjectBackend' && safeParams.p) {
 			url = '/ProjectBackend/' + encodeURIComponent(safeParams.p);
+		} else if (safeParams.mode === 'loadProject' && safeParams.p) {
+			url = '/Project/' + encodeURIComponent(safeParams.p);
+			if (safeParams.d) {
+				url += '/Date/' + encodeURIComponent(safeParams.d);
+			}
 		} else {
 			var query = Object.keys(safeParams).filter(function (key) {
 				return safeParams[key] !== undefined && safeParams[key] !== null && safeParams[key] !== '';
@@ -60,6 +65,13 @@ function buildHomeRequestFromUrl() {
 	var path = window.location.pathname.replace(/^\/+|\/+$/g, '').split('/');
 	if (path.length >= 2 && path[0] === 'ProjectBackend') {
 		return { mode: 'ProjectBackend', p: decodeURIComponent(path[1]) };
+	}
+	if (path.length >= 2 && path[0] === 'Project') {
+		var request = { mode: 'loadProject', p: decodeURIComponent(path[1]) };
+		if (path.length >= 4 && path[2] === 'Date') {
+			request.d = decodeURIComponent(path[3]);
+		}
+		return request;
 	}
 
 	var urlParams = getUrlParameters();

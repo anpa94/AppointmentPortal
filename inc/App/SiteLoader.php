@@ -22,6 +22,9 @@ class SiteLoader
         if (!isset($_GET['p']) && isset($route['p'])) {
             $_GET['p'] = $route['p'];
         }
+        if (!isset($_GET['d']) && isset($route['d'])) {
+            $_GET['d'] = $route['d'];
+        }
 
         if (!$this->isAuthorized()) {
             return $this->template->renderAlert('Seite konnte nicht aufgerufen werden. Keine Berechtigung vorhanden!', 'Page cannot be loaded. No access!');
@@ -54,6 +57,18 @@ class SiteLoader
                 'mode' => 'ProjectBackend',
                 'p' => preg_replace('/[^a-zA-Z0-9_-]/', '', $parts[1])
             ];
+        }
+        if (count($parts) >= 2 && $parts[0] === 'Project') {
+            $route = [
+                'site' => 'home',
+                'mode' => 'loadProject',
+                'p' => preg_replace('/[^a-zA-Z0-9_-]/', '', $parts[1])
+            ];
+            if (count($parts) >= 4 && $parts[2] === 'Date') {
+                $route['d'] = preg_replace('/[^0-9-]/', '', $parts[3]);
+            }
+
+            return $route;
         }
 
         return [
