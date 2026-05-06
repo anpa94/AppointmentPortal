@@ -35,8 +35,8 @@ function loadProject($db_link, $project, $datum)
 		echo'<input id="mode" type="hidden" class="form-control" disabled value="'.$mode.'">';
 		echo'<input id="dud" type="hidden" class="form-control" disabled value="'.$datum.'">';
 		echo'<div id="message" class="pull-right"></div>';
-		echo '<h3>'.$data_head->name.'</h3>';
-		echo'<ul class="nav nav-tabs">
+		echo '<h3 class="project-title">'.$data_head->name.'</h3>';
+		echo'<ul class="nav nav-tabs modern-tabs">
 			<li class="active"><a href="#head" data-toggle="tab"><i class="fa fa-newspaper-o" aria-hidden="true"></i> ' .$language['projektinformationen'] .'</a></li>
 			<li><a href="#book" data-toggle="tab"><i class="fa fa-book" aria-hidden="true"></i> '.$language['bookingcalendar'].'</a></li>';
 		echo '</ul>';
@@ -62,7 +62,8 @@ function loadProject($db_link, $project, $datum)
 					echo '<table id="bookinglist" class="table table-sm table-striped"><thead><tr><th>Datum</th><th>Startzeit</th><th>Endzeit</th><th>Mitarbeiter</th><th>Gebucht von</th><th>Zusatzinfos</th></tr></thead><tbody>';
 					foreach ($row as $valn)
 					{
-							echo '<tr><td>'.$valn["date"].'</td><td>'.$valn["starttime"].'</td><td>'.$valn["endtime"].'</td><td>'.ldapFullname($valn['user']).'</td><td>'.ldapFullname($valn['booker']).'</td><td>'.str_replace('____', '; ',$valn['additional_infos']).'</td></tr>';
+							$additionalInfos = isset($valn['additional_infos']) ? $valn['additional_infos'] : '';
+							echo '<tr><td>'.$valn["date"].'</td><td>'.$valn["starttime"].'</td><td>'.$valn["endtime"].'</td><td>'.ldapFullname($valn['user']).'</td><td>'.ldapFullname($valn['booker']).'</td><td>'.str_replace('____', '; ', $additionalInfos).'</td></tr>';
 				
 					}
 					echo '</tbody></table>';
@@ -112,13 +113,13 @@ function loadProjectBackend($db_link, $project, $datum)
 			echo'<h4><i class="fa fa-cog" aria-hidden="true"></i> Projekt anlegen</h4>';
 		}
 		else
-			echo'<h4><i class="fa fa-cog" aria-hidden="true"></i> Projektadministration'; 
+		echo'<h4><i class="fa fa-cog" aria-hidden="true"></i> Projektadministration'; 
 			if ($data_head->active == 0)
 				echo ' <button type="button" wert = "1" id="activate" class="btn btn-danger btn-sm "><i class="fa fa-floppy-o" aria-hidden="true"></i> Projekt aktivieren</button>';
 	if 		($data_head->active == 1)
 				echo ' <button type="button" wert = "0" id="activate" class="btn btn-success btn-sm "><i class="fa fa-floppy-o" aria-hidden="true"></i> Projekt deaktivieren</button>';
-			echo'</h4><h3>'.$data_head->name.'</h3></h4>
-		<ul class="nav nav-tabs">
+			echo'</h4><h3 class="project-title">'.$data_head->name.'</h3></h4>
+		<ul class="nav nav-tabs modern-tabs">
 			<li class="active"><a href="#head" data-toggle="tab"><i class="fa fa-magic" aria-hidden="true"></i> Kopfdaten</a></li>';
 		if ($project !== 'X')
 		{
