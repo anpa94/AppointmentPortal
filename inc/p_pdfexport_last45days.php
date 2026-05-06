@@ -4,7 +4,6 @@ include("config.php");
 include("func.php");
 $todaybefor45days = date('Y-m-d', strtotime('-46 day'));
 $todaydate = date('Y-m-d');
-require_once "PHPExcel.php";
 	$data = array("Buchungen", array("Datum", "Startzeit", "Endzeit", "Mitarbeiter", "Username", "Gebucht von", "Zusatzinfos", "Rufnummer"));
 $row = $db_link->query('SELECT p.id, p.user, p.booker, p.date, p.additional_infos, t.starttime, t.endtime from _booking as p, _timeslots as t WHERE p.timeslot_id = t.id AND p.status = "1" and p.project_id = "'.$_GET['id'].'" AND p.date > "'.$todaybefor45days.'" AND p.date <= "'.$todaydate.'" ORDER BY p.date ASC, t.starttime ASC ')->fetch_all(MYSQLI_ASSOC);
 	if(isset($row['0']))
