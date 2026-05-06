@@ -104,3 +104,88 @@ h2,h3,h4 {
     background: var(--primary-soft);
     border-bottom: 0;
 }
+
+.project-title {
+    margin-top: 10px;
+    margin-bottom: 14px;
+}
+
+.modern-tabs {
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.modern-tabs > li {
+    float: none;
+    margin-bottom: 0;
+}
+
+.modern-tabs > li > a {
+    border: 1px solid var(--border);
+    border-radius: 10px 10px 0 0;
+    background: #fff;
+    color: var(--muted);
+    padding: 10px 14px;
+}
+
+.modern-tabs > li.active > a,
+.modern-tabs > li.active > a:hover,
+.modern-tabs > li.active > a:focus {
+    background: var(--primary-soft);
+    color: var(--primary);
+    border-color: #bfdbfe;
+}
+
+.tab-content {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-top: 0;
+    border-radius: 0 0 14px 14px;
+    padding: 18px;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+}
+
+.bootstrap-datetimepicker-widget,
+.datepicker {
+    border-radius: 12px !important;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.bootstrap-datetimepicker-widget table td.active,
+.bootstrap-datetimepicker-widget table td.active:hover,
+.datepicker table tr td.active,
+.datepicker table tr td.active:hover {
+    background: var(--primary) !important;
+}
+
+@media (max-width: 991px) {
+    .tab-content { padding: 14px; }
+    .control-group { margin-bottom: 12px; }
+    .btn { width: 100%; margin-top: 8px; }
+    .pull-right, .pull-left { float: none !important; }
+}
+
+@media (max-width: 768px) {
+    .app-hero { padding: 28px 0; }
+    .app-hero h1 { font-size: 30px; }
+    .app-card { padding: 14px; border-radius: 12px; }
+    .modern-tabs { gap: 4px; }
+    .modern-tabs > li,
+    .modern-tabs > li > a {
+        width: 100%;
+        display: block;
+    }
+    .table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .form-control,
+    .input-group,
+    .controls {
+        width: 100%;
+    }
+}
