@@ -1,29 +1,72 @@
-$(function()
-{
-	var ajaxData = {};
-	if(getUrlParameter('p') === undefined)
-		{
-		ajaxData.mode = 'selectProject';
-		}
-	else
-	{
-		ajaxData.mode = 'loadProject';	
-		ajaxData.mode = getUrlParameter('mode');
-		ajaxData.p = getUrlParameter('p');
-		ajaxData.d = getUrlParameter('d');
+var activeMainRequest = null;
+var activePartialRequest = null;
+
+function setMainLoading(isLoading) {
+	$('#main').attr('aria-busy', isLoading ? 'true' : 'false');
+	if (isLoading) {
+		$('#main').addClass('is-loading');
+	} else {
+		$('#main').removeClass('is-loading');
 	}
-	
-	$.ajax(
-	{
+}
+
+function buildHomeRequestFromUrl() {
+	var projectId = getUrlParameter('p');
+	if (projectId === undefined || projectId === null || projectId === '') {
+		return { mode: 'selectProject' };
+	}
+
+	return {
+		mode: getUrlParameter('mode') || 'loadProject',
+		p: projectId,
+		d: getUrlParameter('d')
+	};
+}
+
+function loadMainContent(ajaxData, nextUrl, onDone) {
+	if (nextUrl) {
+		history.pushState('', '', nextUrl);
+	}
+	if (activeMainRequest && activeMainRequest.readyState !== 4) {
+		activeMainRequest.abort();
+	}
+
+	setMainLoading(true);
+	activeMainRequest = $.ajax({
 		method: 'POST',
 		url: 'sites/ajax/ajax_home.php',
-		data: ajaxData,
-		success: function(data)
-		{	
-			$('#main').html(data).promise().done(function() {init();});
+		data: ajaxData
+	}).done(function (data) {
+		$('#main').html(data).promise().done(function() { init(); });
+		if (typeof onDone === 'function') {
+			onDone();
 		}
+	}).fail(function (xhr, status) {
+		if (status !== 'abort') {
+			$('#message').html('<div class="alert alert-danger" role="alert">Seite konnte nicht geladen werden. Bitte erneut versuchen.</div>');
+		}
+	}).always(function () {
+		setMainLoading(false);
 	});
+}
 
+function debounce(fn, waitMs) {
+	var timer = null;
+	return function () {
+		var context = this;
+		var args = arguments;
+		clearTimeout(timer);
+		timer = setTimeout(function () {
+			fn.apply(context, args);
+		}, waitMs);
+	};
+}
+
+$(function() {
+	loadMainContent(buildHomeRequestFromUrl());
+	window.addEventListener('popstate', function () {
+		loadMainContent(buildHomeRequestFromUrl());
+	});
 });
 
 
@@ -101,15 +144,23 @@ function init()
             search: $("#accinfo_inp_groups").val()
         }, function(){});
     });
-    $("#accinfo_inp_groups").keyup(function(e)
+    $("#accinfo_inp_groups").keyup(debounce(function(e)
     {
         e.preventDefault();
-        $('#accinfo_load').load("inc/p_load_user.php",
-        {
-			p: $('#id').val(),
-            search: $("#accinfo_inp_groups").val()
-        }, function(){});
-    });
+		if (activePartialRequest && activePartialRequest.readyState !== 4) {
+			activePartialRequest.abort();
+		}
+        activePartialRequest = $.ajax({
+			url: "inc/p_load_user.php",
+			method: "POST",
+			data: {
+				p: $('#id').val(),
+				search: $("#accinfo_inp_groups").val()
+			}
+		}).done(function (data) {
+			$('#accinfo_load').html(data);
+		});
+    }, 250));
 
     $("#time_inp_groups").keyup(function(e)
     {
@@ -155,58 +206,23 @@ function init()
 	
 	$('.pr_load_fe').click(function()
 	{
-		history.pushState('', '', '?p=' + $(this).attr('p') + '&mode=loadProject');
-		$.ajax(
-		{
-			method: 'POST',
-			url: 'sites/ajax/ajax_home.php',
-			data:
-			{
-				p: $(this).attr('p'),
-				mode: 'loadProject'
-			},
-			success: function(data)
-			{
-				$('#main').html(data).promise().done(function() {init();});
-			}
-		});
+		var pid = $(this).attr('p');
+		loadMainContent({ p: pid, mode: 'loadProject' }, '?p=' + pid + '&mode=loadProject');
 	});
 	$('.pr_load_be').click(function()
 	{
-		history.pushState('', '', '?p=' + $(this).attr('p') + '&mode=loadProjectBackend');
-		$.ajax(
-		{
-			method: 'POST',
-			url: 'sites/ajax/ajax_home.php',
-			data:
-			{
-				p: $(this).attr('p'),
-				mode: 'loadProjectBackend'
-			},
-			success: function(data)
-			{
-				$('#main').html(data).promise().done(function() {init();});
-			}
-		});
+		var pid = $(this).attr('p');
+		loadMainContent({ p: pid, mode: 'loadProjectBackend' }, '?p=' + pid + '&mode=loadProjectBackend');
 	});
 	$('.weekchange').click(function()
 	{
-		history.pushState('', '', '?p=' + $('#id').val() + '&d=' + $(this).attr('datum') +'&mode=' + $('#mode').val() +'#book' );
-		$.ajax(
-		{
-			method: 'POST',
-			url: 'sites/ajax/ajax_home.php',
-			data:
-			{
-				p: $('#id').val(),
-				mode: $('#mode').val(),
-				d: $(this).attr('datum')
-			},
-			success: function(data)
-			{
-				$('#main').html(data).promise().done(function() {init();});
-			}
-		});
+		var projectId = $('#id').val();
+		var dateValue = $(this).attr('datum');
+		var mode = $('#mode').val();
+		loadMainContent(
+			{ p: projectId, mode: mode, d: dateValue },
+			'?p=' + projectId + '&d=' + dateValue + '&mode=' + mode + '#book'
+		);
 	});	
 	$('#send').click(function () {
 		if($.trim($('#titel').val()) === ''){
